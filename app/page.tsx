@@ -19,7 +19,7 @@ export default function HomePage() {
             </p>
             <div className="mt-6 flex flex-wrap gap-3">
               <Link href="/ai" className="rounded-2xl bg-leaf-600 px-5 py-3 text-sm font-semibold text-white hover:bg-leaf-700">Start AI Sorting</Link>
-              <Link href="/quests" className="rounded-2xl border border-leaf-200 px-5 py-3 text-sm font-semibold text-leaf-800 hover:bg-leaf-50">Explore Quests</Link>
+              <a href="/quests" className="rounded-2xl border border-leaf-200 px-5 py-3 text-sm font-semibold text-leaf-800 hover:bg-leaf-50">Explore Quests</Link>
               <PiAuthButton />
             </div>
           </div>
