@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>EcoLoop | تطبيق إعادة تدوير ذكي مدعوم بالويب3</title>
+  <meta name="description" content="EcoLoop تطبيق إعادة تدوير ذكي بواجهة حديثة يشمل تصنيف نفايات بالذكاء الاصطناعي، مكافآت، تحديات، سوق، NFT، خرائط ومتابعة الأثر البيئي." />
+  <meta name="theme-color" content="#0f766e" />
+  <link rel="icon" href="assets/img/logo.svg" type="image/svg+xml" />
+  <link rel="manifest" href="manifest.webmanifest" />
+  <link rel="preload" href="assets/css/styles.css" as="style" />
+  <link rel="stylesheet" href="assets/css/styles.css" />
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar glass">
+      <a class="brand" href="#home" aria-label="EcoLoop home">
+        <img src="assets/img/logo.svg" alt="EcoLoop logo" class="brand-logo" />
+        <div>
+          <strong>EcoLoop</strong>
+          <span>حل دائري ذكي لإعادة التدوير</span>
+        </div>
+      </a>
+
+      <button class="nav-toggle" id="navToggle" aria-label="فتح القائمة">☰</button>
+
+      <nav class="nav" id="mainNav">
+        <a href="#ai">الذكاء الذكي</a>
+        <a href="#rewards">المكافآت</a>
+        <a href="#map">الخريطة</a>
+        <a href="#marketplace">السوق</a>
+        <a href="#nft">NFT</a>
+        <a href="#passports">الجوازات</a>
+        <a href="#profile">الملف الشخصي</a>
+      </nav>
+    </header>
+
+    <main>
+      <section class="hero card card-hero" id="home">
+        <div class="hero-copy">
+          <span class="eyebrow">نسخة ثابتة كاملة HTML + CSS + JS</span>
+          <h1>حوّل إعادة التدوير إلى قيمة حقيقية، إنجاز يومي، وتجربة ممتعة قابلة للتوسع.</h1>
+          <p>
+            EcoLoop يجمع بين تصنيف المخلفات بالذكاء الاصطناعي، نظام نقاط ومكافآت Pi، تحديات مجتمعية، جوازات دائرية للمنتجات المعاد تدويرها،
+            سوق تبادل، واستوديو NFT لعرض القيمة البيئية بصورة حديثة ومميزة.
+          </p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#ai">ابدأ التحليل الآن</a>
+            <a class="btn btn-secondary" href="#marketplace">افتح السوق</a>
+            <button class="btn btn-ghost" id="connectPiBtn">ربط هوية Pi</button>
+          </div>
+          <div class="hero-badges">
+            <span>Pi-only economy</span>
+            <span>Mobile First</span>
+            <span>Gamified UX</span>
+            <span>Local-first Data</span>
+          </div>
+        </div>
+        <div class="hero-art">
+          <img src="assets/img/hero-illustration.svg" alt="رسم توضيحي لإعادة التدوير" />
+        </div>
+      </section>
+
+      <section class="stats-grid" aria-label="إحصائيات المستخدم">
+        <article class="stat-card card">
+          <span>النقاط</span>
+          <strong id="pointsValue">0</strong>
+          <small>تزيد مع التحليل والمهام والشراء والبيع</small>
+        </article>
+        <article class="stat-card card">
+          <span>رصيد Pi</span>
+          <strong id="piValue">0 π</strong>
+          <small>مكافآت داخلية ومحاكاة سوق Pi</small>
+        </article>
+        <article class="stat-card card">
+          <span>الأثر الكربوني</span>
+          <strong id="carbonValue">0 كجم</strong>
+          <small>انبعاثات تم تجنبها</small>
+        </article>
+        <article class="stat-card card">
+          <span>أيام الاستمرار</span>
+          <strong id="streakValue">0</strong>
+          <small>تسجيل يومي وتحديات متتابعة</small>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap">
+        <article class="card feature-card" id="ai">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Smart Recycling AI</span>
+              <h2>تصنيف النفايات بالذكاء الذكي</h2>
+            </div>
+            <span class="pill">بلا ملفات ناقصة</span>
+          </div>
+
+          <form id="classifierForm" class="stack-lg">
+            <div class="grid-2 compact-grid">
+              <label class="field">
+                <span>اسم العنصر</span>
+                <input type="text" id="wasteTitle" placeholder="مثال: زجاجة مياه / علبة معدنية" required />
+              </label>
+              <label class="field">
+                <span>تلميح سريع</span>
+                <select id="wasteHint">
+                  <option value="auto">اكتشاف تلقائي</option>
+                  <option value="plastic">بلاستيك</option>
+                  <option value="metal">معدن</option>
+                  <option value="paper">ورق</option>
+                  <option value="glass">زجاج</option>
+                </select>
+              </label>
+            </div>
+
+            <label class="upload-box" for="wasteImage">
+              <input type="file" id="wasteImage" accept="image/*" required />
+              <div>
+                <strong>ارفع صورة أو التقطها من الموبايل</strong>
+                <span>JPEG / PNG / WebP</span>
+              </div>
+            </label>
+
+            <div class="preview-shell">
+              <img id="imagePreview" alt="معاينة الصورة" hidden />
+              <canvas id="analysisCanvas" width="300" height="220" hidden></canvas>
+            </div>
+
+            <button type="submit" class="btn btn-primary full">تحليل المخلف</button>
+          </form>
+        </article>
+
+        <article class="card result-card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">AI Result</span>
+              <h2>نتيجة التحليل والتوصية البيئية</h2>
+            </div>
+          </div>
+          <div id="classificationEmpty" class="empty-state">
+            ارفع صورة ليتم عرض التصنيف، نسبة الثقة، نصيحة إعادة التدوير، والأثر المتوقع.
+          </div>
+          <div id="classificationResult" class="stack-lg" hidden>
+            <div class="grid-2 compact-grid">
+              <div class="metric-box">
+                <span>الفئة المكتشفة</span>
+                <strong id="resultType">-</strong>
+              </div>
+              <div class="metric-box">
+                <span>نسبة الثقة</span>
+                <strong id="resultConfidence">-</strong>
+              </div>
+            </div>
+            <div class="insight-banner" id="resultSuggestion"></div>
+            <div class="grid-3 compact-grid">
+              <div class="metric-box">
+                <span>الكربون الموفر</span>
+                <strong id="resultCarbon">0</strong>
+              </div>
+              <div class="metric-box">
+                <span>المياه الموفرة</span>
+                <strong id="resultWater">0</strong>
+              </div>
+              <div class="metric-box">
+                <span>النقاط المكتسبة</span>
+                <strong id="resultPoints">0</strong>
+              </div>
+            </div>
+            <div class="action-row wrap">
+              <button class="btn btn-secondary" id="saveAnalysisBtn">حفظ في النشاط</button>
+              <button class="btn btn-ghost" id="mintFromAnalysisBtn">استخدمها لإنشاء NFT</button>
+            </div>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap" id="rewards">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Rewards & Streaks</span>
+              <h2>المكافآت اليومية والإنجازات</h2>
+            </div>
+            <button class="btn btn-secondary small" id="dailyCheckinBtn">استلام مكافأة اليوم</button>
+          </div>
+          <div class="reward-strip">
+            <div>
+              <span>المستوى</span>
+              <strong id="levelValue">1</strong>
+            </div>
+            <div>
+              <span>الشارة الحالية</span>
+              <strong id="badgeValue">مبتدئ دائري</strong>
+            </div>
+            <div>
+              <span>الحالة</span>
+              <strong id="authValue">غير مرتبط</strong>
+            </div>
+          </div>
+          <div class="progress-card">
+            <div class="progress-meta">
+              <span>التقدم للمستوى التالي</span>
+              <strong id="levelProgressText">0%</strong>
+            </div>
+            <div class="progress-bar"><span id="levelProgressBar"></span></div>
+          </div>
+
+          <div class="challenge-list" id="challengeList"></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Leaderboards</span>
+              <h2>لوحة المتصدرين</h2>
+            </div>
+          </div>
+          <div id="leaderboardList" class="leaderboard-list"></div>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap" id="map">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Verified Centers</span>
+              <h2>الخريطة التفاعلية ومراكز التجميع</h2>
+            </div>
+            <button class="btn btn-secondary small" id="locateBtn">تحديد موقعي</button>
+          </div>
+          <div class="map-board" id="mapBoard" aria-label="خريطة مراكز إعادة التدوير"></div>
+          <div class="map-note" id="mapStatus">اضغط على زر تحديد الموقع لإظهار أقرب مركز بشكل تقريبي.</div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Nearby Collection</span>
+              <h2>المراكز القريبة والمعتمدة</h2>
+            </div>
+          </div>
+          <div class="stack-md" id="centerList"></div>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap" id="marketplace">
+        <article class="card wide-card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Pi Marketplace</span>
+              <h2>سوق بيع وشراء المنتجات والمواد المعاد تدويرها</h2>
+            </div>
+            <span class="pill">Pi فقط</span>
+          </div>
+
+          <form id="listingForm" class="grid-4 compact-grid listing-form">
+            <label class="field">
+              <span>اسم المنتج</span>
+              <input type="text" id="listingTitle" placeholder="رف خشب معاد تدويره" required />
+            </label>
+            <label class="field">
+              <span>الفئة</span>
+              <select id="listingType">
+                <option value="product">منتج</option>
+                <option value="material">مادة خام</option>
+                <option value="nft">NFT</option>
+              </select>
+            </label>
+            <label class="field">
+              <span>السعر بـ Pi</span>
+              <input type="number" id="listingPrice" min="0.1" step="0.1" placeholder="2.5" required />
+            </label>
+            <label class="field">
+              <span>الوصف المختصر</span>
+              <input type="text" id="listingDescription" placeholder="منتج منزلي مستدام" required />
+            </label>
+            <button class="btn btn-primary" type="submit">إضافة عرض جديد</button>
+          </form>
+
+          <div class="market-grid" id="marketGrid"></div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Community Quests</span>
+              <h2>تحديات النظافة المجتمعية</h2>
+            </div>
+          </div>
+          <div class="quest-list" id="questList"></div>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap" id="nft">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">NFT Creator</span>
+              <h2>استوديو تحويل المخلفات إلى NFT</h2>
+            </div>
+          </div>
+          <form id="nftForm" class="stack-lg">
+            <label class="field">
+              <span>اسم العمل</span>
+              <input type="text" id="nftTitle" placeholder="Glass Revival #01" required />
+            </label>
+            <label class="field">
+              <span>القصة</span>
+              <textarea id="nftStory" rows="4" placeholder="احكِ قصة العنصر المعاد تدويره وكيف تم إنقاذه من النفايات" required></textarea>
+            </label>
+            <div class="grid-2 compact-grid">
+              <label class="field">
+                <span>ستايل الفن</span>
+                <select id="nftStyle">
+                  <option value="eco-pop">Eco Pop Art</option>
+                  <option value="glass-glow">Glass Glow</option>
+                  <option value="paper-vintage">Paper Vintage</option>
+                  <option value="metal-chrome">Metal Chrome</option>
+                </select>
+              </label>
+              <label class="field">
+                <span>سعر الإدراج بـ Pi</span>
+                <input type="number" id="nftPrice" min="0.1" step="0.1" value="1.5" required />
+              </label>
+            </div>
+            <label class="upload-box" for="nftImage">
+              <input type="file" id="nftImage" accept="image/*" required />
+              <div>
+                <strong>صورة العنصر أو المنتج</strong>
+                <span>سيتم تطبيق معالجة فنية مباشرة داخل المتصفح</span>
+              </div>
+            </label>
+            <button type="submit" class="btn btn-primary full">إنشاء ومعاينة NFT</button>
+          </form>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Minting Preview</span>
+              <h2>المعاينة والـ Metadata</h2>
+            </div>
+          </div>
+          <div class="nft-preview-wrap">
+            <canvas id="nftCanvas" width="540" height="540"></canvas>
+          </div>
+          <pre class="metadata-box" id="metadataBox">{
+  "status": "في انتظار إنشاء NFT"
+}</pre>
+          <div class="action-row wrap">
+            <button class="btn btn-secondary" id="mintNftBtn">Mint محلي</button>
+            <button class="btn btn-ghost" id="listNftBtn">إدراج في السوق</button>
+          </div>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap" id="passports">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Circular Passports</span>
+              <h2>جوازات دائرية شفافة للمنتجات</h2>
+            </div>
+          </div>
+          <div class="passport-grid" id="passportGrid"></div>
+        </article>
+
+        <article class="card" id="profile">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">User Profile</span>
+              <h2>الملف الشخصي والنشاط البيئي</h2>
+            </div>
+          </div>
+          <div class="profile-grid">
+            <div class="profile-box">
+              <span>اسم العرض</span>
+              <strong id="profileName">Eco Hero</strong>
+            </div>
+            <div class="profile-box">
+              <span>عدد العناصر المعالجة</span>
+              <strong id="profileItems">0</strong>
+            </div>
+            <div class="profile-box">
+              <span>عدد NFTs</span>
+              <strong id="profileNfts">0</strong>
+            </div>
+            <div class="profile-box">
+              <span>المركز الحالي</span>
+              <strong id="profileLevel">1</strong>
+            </div>
+          </div>
+
+          <h3 class="subsection-title">سجل النشاط</h3>
+          <div class="activity-list" id="activityList"></div>
+        </article>
+      </section>
+
+      <section class="grid-2 section-gap">
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">Security & Performance</span>
+              <h2>جاهزية الاستخدام والأمان</h2>
+            </div>
+          </div>
+          <ul class="check-list">
+            <li>البيانات تحفظ محليًا داخل المتصفح لتقليل جمع البيانات.</li>
+            <li>واجهة سريعة وخفيفة بدون مكتبات خارجية إلزامية.</li>
+            <li>تصميم متجاوب للموبايل مع أزرار واضحة وتجربة سلسة.</li>
+            <li>دعم تثبيت كتطبيق PWA عبر manifest و service worker.</li>
+            <li>اقتصاد التطبيق مبني على Pi داخل واجهة الاستخدام.</li>
+          </ul>
+          <div class="action-row wrap">
+            <button class="btn btn-secondary" id="exportStateBtn">تصدير البيانات</button>
+            <button class="btn btn-danger" id="resetStateBtn">إعادة ضبط التطبيق</button>
+          </div>
+        </article>
+
+        <article class="card">
+          <div class="section-head">
+            <div>
+              <span class="eyebrow">NFT Gallery</span>
+              <h2>معرض الأعمال التي تم إنشاؤها</h2>
+            </div>
+          </div>
+          <div class="gallery-grid" id="nftGallery"></div>
+        </article>
+      </section>
+    </main>
+
+    <footer class="footer card">
+      <div>
+        <strong>EcoLoop</strong>
+        <p>نسخة HTML/CSS/JS مكتملة الواجهة والمنطق المحلي وقابلة للتطوير لاحقًا مع Pi SDK وواجهات API حقيقية.</p>
+      </div>
+      <div class="footer-links">
+        <a href="docs/MAINNET_ACCEPTANCE_AR.md" target="_blank" rel="noreferrer">دليل الجاهزية</a>
+        <a href="docs/PRIVACY_POLICY_AR.md" target="_blank" rel="noreferrer">سياسة الخصوصية</a>
+        <a href="docs/TERMS_AR.md" target="_blank" rel="noreferrer">الشروط والأحكام</a>
+      </div>
+    </footer>
+  </div>
+
+  <div class="toast" id="toast"></div>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
